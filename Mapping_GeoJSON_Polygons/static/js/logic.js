@@ -35,7 +35,7 @@ L.control.layers(baseMaps).addTo(map);
 let torontoHoods = "https://raw.githubusercontent.com/blprentice/mod14_mapping_earthquakes/Mapping_GeoJSON_Polygons/Mapping_GeoJSON_Polygons/torontoNeighborhoods.json";
 
 var myStyle = {
-  "color": "#ccddff",
+  "color": "blue",
   "weight": 1,
   "fillColor": "yellow",
 }
@@ -47,18 +47,8 @@ d3.json(torontoHoods).then(function(data) {
   L.geoJSON(data, {
     style: myStyle,
     onEachFeature: function(feature, layer) {
-      console.log(layer);
-      layer.bindPopup("<h2> Neighborhood: " + feature.properties.AREA-NAME + "</h3>").addTo(map);
+        console.log(layer);
+        layer.bindPopup("<h3> Neighborhood: " + feature.properties.AREA_NAME + "</h3>")
     }
-  });
-
-
-
-  // L.geoJSON(data, {
-  //   style: myStyle,
-  //   onEachFeature: function(feature, layer) {
-  //       console.log(layer);
-  //       layer.bindPopup("<h3> Neighborhood: " + feature.properties.AREA-NAME + "</h3>")
-  //   }
-  // }).addTo(map);
+  }).addTo(map);
 });
