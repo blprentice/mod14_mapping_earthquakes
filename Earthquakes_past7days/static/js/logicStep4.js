@@ -21,6 +21,15 @@ let baseMaps = {
   "Satellite": satelliteStreets,
 };
 
+// Create the earthquake layer for our map.
+let _earthquakes = new L.layerGroup();
+
+// We define an object that contains the overlays.
+// This overlay will be visible all the time.
+let overlays = {
+  Earthquakes: _earthquakes
+};
+
 // Create the map object with center, zoom level and default layer.
 let map = L.map('mapid', {
   center: [39.5, -98.5],
@@ -28,20 +37,10 @@ let map = L.map('mapid', {
   layers: [streets]
 });
 
-// Create the earthquake layer for our map.
-let earthquakes = new L.layerGroup();
-
-// We define an object that contains the overlays.
-// This overlay will be visible all the time.
-let overlays = {
-  Earthquakes: earthquakes
-};
-
-// Then we add a control to the map that will allow the user to change
-// which layers are visible.
+// Then we add a control to the map that will allow the user to change which layers are visible.
 L.control.layers(baseMaps, overlays).addTo(map);
 
-// Accessing the Past 7 days earthquake data via GeoJSON URL.
+// Accessing last 7 days of earthquakes GeoJSON URL.
 let earthquakes = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 // This function returns the style data for each of the earthquakes we plot on
@@ -105,8 +104,8 @@ d3.json(earthquakes).then(function(data) {
     onEachFeature: function(feature, layer) {
       layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
     }
-  }).addTo(earthquakes);
+  }).addTo(_earthquakes);
 
-  // Then we add the earthquake layer to our map
-  earthquakes.addTo(map);
+  // Then we add the earthquake layer to our map.
+  _earthquakes.addTo(map);
 });
