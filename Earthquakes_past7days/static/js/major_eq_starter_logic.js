@@ -39,7 +39,6 @@ let overlays = {
   "Earthquakes": allEarthquakes,
   "Tectonic Plates": tectonicPlates,
   "Major Earthquakes": majEarthquakes,
-
 };
 
 // Then we add a control to the map that will allow the user to change which
@@ -172,7 +171,6 @@ majEarthquakes.addTo(map);
 // Here we create a legend control object.
 let legend = L.control({
   position: "bottomright"
-
 });
 
 // Then add all the details for the legend
